@@ -24,7 +24,7 @@ spec:
         - kind: ENV
           value: DEBIAN_FRONTEND=noninteractive
         - kind: RUN
-          value: apt-get update && apt-get -y install curl git python3 python3-pip 
+          value: apt-get update && apt-get -y install curl git python3 wget python3-pip
         - kind: RUN
           value: apt-get -y install libgl1-mesa-glx libglib2.0-dev
         - kind: WORKDIR
