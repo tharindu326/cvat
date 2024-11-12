@@ -33,7 +33,7 @@ spec:
           # make sure that for the next step (at least) the ultralytics package version
           # is compatible to that of the the ultralytics package used to train the custom model
         - kind: RUN
-          value: pip3 install ultralytics==8.0.114 opencv-python==4.7.0.72 numpy==1.24.3
+          value: pip3 install ultralytics
         - kind: RUN
           value: wget https://github.com/akanametov/yolo-face/releases/download/v0.0.0/yolov11m-face.pt
         - kind: RUN
