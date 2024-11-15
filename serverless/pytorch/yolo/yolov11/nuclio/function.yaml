@@ -1,5 +1,5 @@
 metadata:
-  name: pytorch-yolo-yolov11-face
+  name: pytorch-yolo-yolov11
   namespace: cvat
   annotations:
     name: YOLOv11 Face
@@ -16,36 +16,27 @@ spec:
   eventTimeout: 30s
 
   build:
-    image: cvat.pytorch.yolo.yolov11
-    baseImage: ubuntu:22.04
+    image: cvat.pth.yolo.yolov11
+    baseImage: ultralytics/ultralytics:latest-cpu
 
     directives:
       preCopy:
-        - kind: ENV
-          value: DEBIAN_FRONTEND=noninteractive
+        - kind: USER
+          value: root
         - kind: RUN
-          value: apt-get update && apt-get -y install curl git python3 wget python3-pip
+          value: apt update && apt install --no-install-recommends -y libglib2.0-0 git wget
         - kind: RUN
-          value: apt-get -y install libgl1-mesa-glx libglib2.0-dev
+          value: pip install supervision ultralytics 
         - kind: WORKDIR
           value: /opt/nuclio
-          #
-          # make sure that for the next step (at least) the ultralytics package version
-          # is compatible to that of the the ultralytics package used to train the custom model
-        - kind: RUN
-          value: pip3 install ultralytics
         - kind: RUN
           value: wget https://github.com/akanametov/yolo-face/releases/download/v0.0.0/yolov11m-face.pt
-        - kind: RUN
-          value: ln -s /usr/bin/pip3 /usr/local/bin/pip
-        - kind: RUN
-          value: ln -s /usr/bin/python3 /usr/local/bin/python
 
   triggers:
     myHttpTrigger:
-      maxWorkers: 2
+      maxWorkers: 1
       kind: 'http'
-      workerAvailabilityTimeoutMilliseconds: 10000
+      workerAvailabilityTimeoutMilliseconds: 30000
       attributes:
         maxRequestBodySize: 33554432 # 32MB
 
