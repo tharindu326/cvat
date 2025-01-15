@@ -7,11 +7,11 @@ metadata:
   namespace: cvat
   annotations:
     name: Segment Anything 2.0
-    version: 2
+    version: "2"
     type: interactor
     spec:
-    min_pos_points: 1
-    min_neg_points: 0
+    min_pos_points: "1"
+    min_neg_points: "0"
     animated_gif: https://raw.githubusercontent.com/cvat-ai/cvat/develop/site/content/en/images/hrnet_example.gif
     help_message: The interactor allows to get a mask of an object using at least one positive, and any negative points inside it
 
@@ -19,7 +19,8 @@ spec:
   description: Interactive object segmentation with Segment-Anything 2.0
   runtime: 'python:3.8'
   handler: main:handler
-  eventTimeout: 30s
+  eventTimeout: 3000s
+  readinessTimeoutSeconds: 175
 
   build:
     image: cvat.pth.facebookresearch.sam2.vit_h
